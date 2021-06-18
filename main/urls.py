@@ -1,6 +1,42 @@
 from django.urls import path
-from .views import IndexView
+from .views import (IndexView,
+                    EventListView,
+                    EventCreateView,
+                    EventUpdateView,
+                    EventDeleteView,
+                    GuestsListView,
+                    GuestsCreateView,
+                    GuestsUpdateView,
+                    GuestsDeleteView,
+                    Emails_bodyCreate,
+                    Emails_bodyListView,
+                    Emails_bodyUpdateView,
+                    Emails_bodyDeleteView
+                    )
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
+    path('event/', EventListView.as_view(), name='eventList'),
+    path('event/create/', EventCreateView.as_view(), name='eventCreate'),
+    path('event/update/<slug:slug>/',
+         EventUpdateView.as_view(), name='eventUpdate'),
+    path('event/delete/<slug:slug>', EventDeleteView.as_view(), name='eventDelte'),
+    path('guests/', GuestsListView.as_view(), name='guestsList'),
+    path('guests/create/', GuestsCreateView.as_view(), name='guestsCreate'),
+    path('guests/update/<slug:slug>/',
+         GuestsUpdateView.as_view(), name='guestsUpdate'),
+    path('guests/delete/<slug:slug>',
+         GuestsDeleteView.as_view(), name='guestsDelte'),
+    path('guests/', GuestsListView.as_view(), name='guestsList'),
+    path('guests/create/', GuestsCreateView.as_view(), name='guestsCreate'),
+    path('guests/update/<slug:slug>/',
+         GuestsUpdateView.as_view(), name='guestsUpdate'),
+    path('guests/delete/<slug:slug>',
+         GuestsDeleteView.as_view(), name='guestsDelte'),
+    path('email/', Emails_bodyListView.as_view(), name='emailList'),
+    path('email/create/', Emails_bodyCreate.as_view(), name='emailCreate'),
+    path('email/update/<slug:slug>/',
+         Emails_bodyUpdateView.as_view(), name='emailUpdate'),
+    path('email/delete/<slug:slug>',
+         Emails_bodyDeleteView.as_view(), name='emailDelte'),
 ]

@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Eventos{% endblock %}
+{% block content %}
+
+{% block name %}Administrador de Eventos{% endblock %}
+{% if events %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Link</th>
+            <th scope="col">Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ event.name}}</td>
+            <td>{{ event.link}}</td>
+            <td>{{ event.date}}</td>
+            <td>
+                <a href="{% url 'eventUpdate' event.slug %}" role="button"
+                    class="btn btn-secondary btn-sm btn-block">Editar</a>
+                <a href="{% url 'eventDelte' event.slug %}" role="button"
+                    class="btn btn-danger btn-sm btn-block">Borrar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h1>No hay prestamos Eventos</h1>
+{% endif %}
+<div class="d-grid gap-2">
+    <a href="{% url 'eventCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un evento</a>
+</div>
+{% endblock %}
