@@ -10,7 +10,7 @@ class EventForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Link del Webinar'}),
-            'date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}, format='%Y-%m-%dT%H:%M')
+            'date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'})
         }
 
 
