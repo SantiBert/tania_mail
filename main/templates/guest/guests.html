@@ -1,40 +1,40 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}Eventos{% endblock %}
+{% block title %}Invitados{% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-8">
-            <form method="POST" action="{% url 'eventSearch' %}" class="d-flex">{% csrf_token %}
+            <form method="POST" action="{% url 'guestsSearch' %}" class="d-flex">{% csrf_token %}
                 <input class="form-control me-sm-2" type="text" placeholder="Buscar">
                 <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>
     </div>
 </div>
-{% block name %}Administrador de Eventos{% endblock %}
-{% if events %}
+{% block name %}Administrador de Invitados{% endblock %}
+{% if guests %}
 <div class="container d-flex justify-content-center aling-items-center">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Link</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Email</th>
             </tr>
         </thead>
         <tbody>
-            {% for event in events %}
+            {% for guest in guests %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ event.name}}</td>
-                <td>{{ event.link}}</td>
-                <td>{{ event.date}}</td>
+                <td>{{ guest.name}}</td>
+                <td>{{ guest.event}}</td>
+                <td>{{ guest.email}}</td>
                 <td>
-                    <a href="{% url 'eventUpdate' event.slug %}" role="button"
+                    <a href="{% url 'guestsUpdate' guest.slug %}" role="button"
                         class="btn btn-secondary btn-sm btn-block">Editar</a>
-                    <a href="{% url 'eventDelte' event.slug %}" role="button"
+                    <a href="{% url 'guestsDelte' guest.slug %}" role="button"
                         class="btn btn-danger btn-sm btn-block">Borrar</a>
                 </td>
             </tr>
@@ -43,9 +43,9 @@
     </table>
 </div>
 {% else %}
-<h1>No hay prestamos Eventos</h1>
+<h1>No hay invitados</h1>
 {% endif %}
 <div class="d-grid gap-2">
-    <a href="{% url 'eventCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un evento</a>
+    <a href="{% url 'guestsCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un Invitado</a>
 </div>
 {% endblock %}

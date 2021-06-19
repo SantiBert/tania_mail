@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} Editar invitado {{object.name}}{% endblock %}
+{% block content %}
+{% block name %} Editar invitado {{object.name}}{% endblock %}
+<div class="container d-flex justify-content-center aling-items-center">
+    <form action="" method="post">{% csrf_token %}
+        <fieldset>
+            <div class="form-group row">
+                {{form.as_table}}
+            </div>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}

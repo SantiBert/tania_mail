@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, TemplateView, UpdateView, View, ListView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django.db.models import Q
 from .models import Event, Emails_body, Guests
 from .forms import EventForm, Emails_bodyForm, GuestsForm
 
@@ -18,7 +18,6 @@ class EventListView(ListView):
     template_name = 'events/events.html'
     model = Event
     context_object_name = 'events'
-    ordering = ['-date']
 
 
 @method_decorator(login_required, name='dispatch')
@@ -39,34 +38,34 @@ class EventUpdateView(UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class EventDeleteView(View):
-    def get(self, request, slug, *args, **kwargs):
-        try:
-            event = Event.objects.get(slug=slug)
-        except:
-            event = None
+class EventDeleteView(DeleteView):
+    model = Event
+    template_name = 'events/event-delete.html'
+    context_object_name = 'event'
+    success_url = reverse_lazy('eventList')
+
+
+@method_decorator(login_required, name='dispatch')
+class EventSearchView(View):
+    def post(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        event = Event.objects.all()
+        if queryset:
+            events = Event.objects.filter(
+                Q(name__icontains=queryset)).distinct().order_by('-date')
         context = {
             "event": event,
+            "events": events,
         }
-        return render(request, 'events/event-delete.html', context)
-
-    def post(self, request, slug, *args, **kwargs):
-        try:
-            event = Event.objects.get(slug=slug)
-            event.is_active = not event.is_active
-            event.save()
-        except:
-            None
-        return HttpResponseRedirect('/event/')
-
+        return render(request, 'events/event-result.html', context)
 ######################evens################
 
 
 @method_decorator(login_required, name='dispatch')
 class GuestsListView(ListView):
-    template_name = 'guest/guest.html'
+    template_name = 'guest/guests.html'
     model = Guests
-    ordering = ['name']
+    context_object_name = 'guests'
 
 
 @method_decorator(login_required, name='dispatch')
@@ -87,26 +86,26 @@ class GuestsUpdateView(UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class GuestsDeleteView(View):
-    def get(self, request, slug, *args, **kwargs):
-        try:
-            guest = Guests.objects.get(slug=slug)
-        except:
-            event = None
+class GuestsDeleteView(DeleteView):
+    model = Guests
+    template_name = 'guest/guest-delete.html'
+    context_object_name = 'guest'
+    success_url = reverse_lazy('guestsList')
+
+
+@method_decorator(login_required, name='dispatch')
+class GuestsSearchView(View):
+    def post(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        guest = Guests.objects.all()
+        if queryset:
+            guests = Guests.objects.filter(
+                Q(name__icontains=queryset)).distinct().order_by('name')
         context = {
             "guest": guest,
+            "guests": guests,
         }
-        return render(request, 'guest/guest-delete.html', context)
-
-    def post(self, request, slug, *args, **kwargs):
-        try:
-            guest = Guests.objects.get(slug=slug)
-            guest.is_active = not guest.is_active
-            guest.save()
-        except:
-            None
-        return HttpResponseRedirect('/guests/')
-
+        return render(request, 'guest/guest-result.html', context)
 ######################email################
 
 
@@ -114,7 +113,7 @@ class GuestsDeleteView(View):
 class Emails_bodyListView(ListView):
     template_name = 'emails/mail.html'
     model = Emails_body
-    ordering = ['-event.date']
+    context_object_name = 'emails'
 
 
 @method_decorator(login_required, name='dispatch')
@@ -135,22 +134,23 @@ class Emails_bodyUpdateView(UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class Emails_bodyDeleteView(View):
-    def get(self, request, slug, *args, **kwargs):
-        try:
-            email = Emails_body.objects.get(slug=slug)
-        except:
-            event = None
+class Emails_bodyDeleteView(DeleteView):
+    model = Emails_body
+    template_name = 'emails/email-delete.html'
+    context_object_name = 'email'
+    success_url = reverse_lazy('emailList')
+
+
+@method_decorator(login_required, name='dispatch')
+class Emails_bodySearchView(View):
+    def post(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        email = Emails_body.objects.all()
+        if queryset:
+            emails = Emails_body.objects.filter(
+                Q(name__icontains=queryset)).distinct().order_by('event')
         context = {
             "email": email,
+            "emails": emails,
         }
-        return render(request, 'emails/email-delete.html', context)
-
-    def post(self, request, slug, *args, **kwargs):
-        try:
-            email = Emails_body.objects.get(slug=slug)
-            email.is_active = not email.is_active
-            email.save()
-        except:
-            None
-        return HttpResponseRedirect('/email/')
+        return render(request, 'emails/email-result.html', context)

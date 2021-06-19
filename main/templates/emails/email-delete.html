@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block title %}Borrar e-mail de {{email.name}}{% endblock %}
+{% block content %}
+<div class="title text-center">
+    <h2>Borrar e-mail de {{email.name}} </h2>
+</div>
+<div class="container">
+    <form action="" method="post">{% csrf_token %}
+        <p>¿Estás seguro de que quieres borrar el e-mail de<b>" {{email.name}}"</b>?</p>
+        <input type="submit" class="btn btn-primary btn-block" value="Sí, borrar" />
+    </form>
+</div>
+
+{% endblock %}

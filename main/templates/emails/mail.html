@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} E-mails{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form method="POST" action="{% url 'emailSearch' %}" class="d-flex">{% csrf_token %}
+                <input class="form-control me-sm-2" type="text" placeholder="Buscar">
+                <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% block name %}Administrador de E-mails{% endblock %}
+{% if emails %}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Link</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for email in emails %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ email.name}}</td>
+                <td>{{ email.issue}}</td>
+                <td>{{ email.event}}</td>
+                <td>
+                    <a href="{% url 'emailUpdate' email.id %}" role="button"
+                        class="btn btn-secondary btn-sm btn-block">Editar</a>
+                    <a href="{% url 'emailDelte' email.id %}" role="button"
+                        class="btn btn-danger btn-sm btn-block">Borrar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+<h1>No hay E-mails registrados</h1>
+{% endif %}
+<div class="d-grid gap-2">
+    <a href="{% url 'emailCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un e-amil</a>
+</div>
+{% endblock %}

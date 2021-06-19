@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
     'main',
 ]
 
@@ -50,30 +49,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Image', ],
-            ['Link', 'Unlink'],
-            ['Undo', 'Redo'],
-            ['Iframe'],
-            '/',
-            ['Bold', 'Italic', 'Underline', 'Blockquote'],
-            ['clipboard', 'undo'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
-                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Cut', 'Copy', 'Paste', 'PasteText',
-                'PasteFromWord'],
-            ['RemoveFormat', 'SelectAll', '-', 'Scayt'],
-            '/',
-            ['Styles', 'Format', 'Font', 'FontSize'],
-            ['TextColor', 'BGColor'],
-            ['Maximize', 'ShowBlocks'],
-        ]
-    }
-}
 
 ROOT_URLCONF = 'tania_emails.urls'
 
