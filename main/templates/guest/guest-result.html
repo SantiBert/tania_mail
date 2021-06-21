@@ -1,41 +1,40 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %} Resultados de búsqueda: E-mails{% endblock %}
+{% block title %}Resultados de búsqueda: Invitados{% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-8">
-            <form method="POST" action="{% url 'emailSearch' %}" class="d-flex">{% csrf_token %}
-               <input id="valor" class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar">
+            <form method="POST" action="{% url 'guestsSearch' %}" class="d-flex">{% csrf_token %}
+                <input id="valor" class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar">
                 <button id="activador" class="btn btn-danger my-2 my-sm-0" type="submit" disabled>Buscar</button>
             </form>
         </div>
     </div>
 </div>
-
-{% block name %}Resultados de búsqueda E-mails{% endblock %}
-{% if emails %}
-<div class="container">
+{% block name %}Resultados de búsqueda: Invitados{% endblock %}
+{% if guests %}
+<div class="container d-flex justify-content-center aling-items-center">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Link</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Email</th>
             </tr>
         </thead>
         <tbody>
-            {% for e in emails %}
+            {% for e in guests %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ e.name}}</td>
-                <td>{{ e.issue}}</td>
                 <td>{{ e.event}}</td>
+                <td>{{ e.email}}</td>
                 <td>
-                    <a href="{% url 'emailUpdate' e.id %}" role="button"
+                    <a href="{% url 'guestsUpdate' e.slug %}" role="button"
                         class="btn btn-secondary btn-sm btn-block">Editar</a>
-                    <a href="{% url 'emailDelte' e.id %}" role="button"
+                    <a href="{% url 'guestsDelte' e.slug %}" role="button"
                         class="btn btn-danger btn-sm btn-block">Borrar</a>
                 </td>
             </tr>
@@ -43,12 +42,11 @@
         </tbody>
     </table>
 </div>
-
 {% else %}
-<h1>No se encontraron E-mails registrados</h1>
+<h1>No se encontró ningun invitado</h1>
 {% endif %}
 <div class="d-grid gap-2">
-    <a href="{% url 'emailCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un e-amil</a>
+    <a href="{% url 'guestsCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un Invitado</a>
 </div>
 {% block ExtraScript %}
 <script>

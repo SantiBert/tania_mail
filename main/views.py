@@ -54,8 +54,8 @@ class EventSearchView(View):
             events = Event.objects.filter(
                 Q(name__icontains=queryset)).distinct().order_by('-date')
         context = {
-            "event": event,
             "events": events,
+            "event": event,
         }
         return render(request, 'events/event-result.html', context)
 ######################evens################

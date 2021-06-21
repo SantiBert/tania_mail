@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Resultados de búsqueda: eventos{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form method="POST" action="{% url 'eventSearch' %}"  class="d-flex">{% csrf_token %}
+                <input id="valor" class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar">
+                <button id="activador" class="btn btn-danger my-2 my-sm-0" type="submit" disabled>Buscar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% block name %}Resultados de búsqueda: eventos{% endblock %}
+{% if events %}
+<div class="container d-flex justify-content-center aling-items-center">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Link</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in events %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ e.name}}</td>
+                <td>{{ e.link}}</td>
+                <td>{{ e.date}}</td>
+                <td>
+                    <a href="{% url 'eventUpdate' e.slug %}" role="button"
+                        class="btn btn-secondary btn-sm btn-block">Editar</a>
+                    <a href="{% url 'eventDelte' e.slug %}" role="button"
+                        class="btn btn-danger btn-sm btn-block">Borrar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h1>No se encontraron eventos</h1>
+{% endif %}
+<div class="d-grid gap-2">
+    <a href="{% url 'eventCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un evento</a>
+</div>
+{% block ExtraScript %}
+<script>
+    function el(el) {
+        return document.getElementById(el);
+    }
+    
+    el("valor").addEventListener("input",function() {
+        if (!this.value.length) { //Si la longitud de la cadena de caracteres es 0 => falsa
+            el("activador").disabled = true; //Deshabilitamos el botón
+        } else { //Si no...
+            el("activador").disabled = false; //Lo habilitamos
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

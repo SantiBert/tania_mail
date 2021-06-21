@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-8">
             <form method="POST" action="{% url 'emailSearch' %}" class="d-flex">{% csrf_token %}
-                <input class="form-control me-sm-2" type="text" placeholder="Buscar">
-                <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
+                <input id="valor" class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar">
+                <button id="activador" class="btn btn-danger my-2 my-sm-0" type="submit" disabled>Buscar</button>
             </form>
         </div>
     </div>
@@ -50,4 +50,19 @@
 <div class="d-grid gap-2">
     <a href="{% url 'emailCreate' %}" class="btn btn-lg btn-primary" type="button">Crear un e-amil</a>
 </div>
+{% block ExtraScript %}
+<script>
+    function el(el) {
+        return document.getElementById(el);
+    }
+    
+    el("valor").addEventListener("input",function() {
+        if (!this.value.length) { //Si la longitud de la cadena de caracteres es 0 => falsa
+            el("activador").disabled = true; //Deshabilitamos el botón
+        } else { //Si no...
+            el("activador").disabled = false; //Lo habilitamos
+        }
+    });
+</script>
+{% endblock %}
 {% endblock %}
