@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-8">
-            <form method="POST" action="{% url 'eventSearch' %}"  class="d-flex">{% csrf_token %}
+            <form method="POST" action="{% url 'eventSearch' %}" class="d-flex">{% csrf_token %}
                 <input id="valor" class="form-control me-sm-2" type="text" name="buscar" placeholder="Buscar">
                 <button id="activador" class="btn btn-danger my-2 my-sm-0" type="submit" disabled>Buscar</button>
             </form>
@@ -22,6 +22,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Link</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,8 @@
                         class="btn btn-secondary btn-sm btn-block">Editar</a>
                     <a href="{% url 'eventDelte' event.slug %}" role="button"
                         class="btn btn-danger btn-sm btn-block">Borrar</a>
+                    <a href="{% url 'eventSend' event.slug %}" role="button" class="btn btn-info btn-sm btn-block">
+                        Enviar emails</a>
                 </td>
             </tr>
             {% endfor %}
@@ -53,8 +56,8 @@
     function el(el) {
         return document.getElementById(el);
     }
-    
-    el("valor").addEventListener("input",function() {
+
+    el("valor").addEventListener("input", function () {
         if (!this.value.length) { //Si la longitud de la cadena de caracteres es 0 => falsa
             el("activador").disabled = true; //Deshabilitamos el botón
         } else { //Si no...

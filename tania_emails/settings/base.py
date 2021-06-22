@@ -19,6 +19,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+#EMAIL_BACKEND = 'post_office.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'eze.farias33@gmail.com'
+EMAIL_HOST_PASSWORD = '36602158'
+EMAIL_PORT = 587
+
+TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')^n%#ti4s#=811g3+$oyx-ne)gtnhz@rb1q)3bo@embl20bk&*'
 
@@ -38,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'templated_email',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +127,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Celery Configuration Options
+CELERY_TIMEZONE = "America/Argentina/Buenos_Aires"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -121,3 +138,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'

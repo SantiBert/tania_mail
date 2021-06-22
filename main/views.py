@@ -1,11 +1,16 @@
+import pdb
 from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.core.mail import send_mail
 from .models import Event, Emails_body, Guests
 from .forms import EventForm, Emails_bodyForm, GuestsForm
+from tania_emails.settings.base import EMAIL_HOST_USER
+
+from templated_email import send_templated_mail
 
 
 @method_decorator(login_required, name='dispatch')
@@ -18,6 +23,36 @@ class EventListView(ListView):
     template_name = 'events/events.html'
     model = Event
     context_object_name = 'events'
+
+
+@method_decorator(login_required, name='dispatch')
+class SendEmailEventView(View):
+    def get(self, request, slug, *args, **kwargs):
+        event = Event.objects.get(slug=slug)
+        """
+        send_mail('Asunto', 'a ver si llega', EMAIL_HOST_USER, [
+                  'santibertero34@gmail.com', ], fail_silently=False)
+        """
+        gests = Guests.objects.filter(event=event)
+        for gest in gests:
+            try:
+                # pdb.set_trace(),
+                send_templated_mail(
+                    template_name='email-model',
+                    from_email=EMAIL_HOST_USER,
+
+                    recipient_list=[gest.email],
+                    context={
+                        'gest': gest,
+                        'event': event,
+                    },)
+            except:
+                pass
+
+        context_body = {
+            'event': event,
+        }
+        return render(request, 'events/sendemails.html', context_body)
 
 
 @method_decorator(login_required, name='dispatch')

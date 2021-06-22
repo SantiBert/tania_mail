@@ -6,26 +6,28 @@ from .models import Event, Emails_body, Guests
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'link', 'date']
+        fields = ['name', 'link', 'date', 'time']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Link del Webinar'}),
-            'date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date'})
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time', })
         }
 
 
 class Emails_bodyForm(forms.ModelForm):
     class Meta:
         model = Emails_body
-        fields = ['name',  'issue', 'text', 'event', 'date_of_send']
+        fields = ['name',  'issue', 'text', 'event', 'date', 'time']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'issue': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Asunto'}),
             'event': forms.Select(),
-            'date_of_send': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'date', })
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', }),
+            'time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time', })
         }
         labels = {
-            'name': 'Nombre', 'issue': 'Asunto', 'event': 'Evento', 'date_of_send': 'Fecha de envio',
+            'name': 'Nombre', 'issue': 'Asunto', 'event': 'Evento', 'date': 'Fecha de envio', 'time': 'Hora'
         }
 
 

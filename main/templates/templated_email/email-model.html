@@ -1,0 +1,62 @@
+{% block html %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    /* Style all font awesome icons */
+    i {
+        padding: 20px;
+        font-size: 30px;
+        width: 50px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    /* Add a hover effect if you want */
+    i {
+        opacity: 0.7;
+    }
+
+    #instagram {
+        background-color: #E219C3;
+        color: white;
+    }
+
+    #linkedin {
+        background-color: #007bb5;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h5> Hola {{gest.name}}</h5>
+        <div class="row">
+            <p>Ahora sí, tienes tu plaza confirmada para mi WEBINAR ON LINE para profesionales que
+                buscan reinventarse.</p>
+            <p>Este es el enlace para conectar el próximo</p>
+            <a href={{event.link}}> Link</a>
+            <p>RECUERDA: Tu cita será el próximo {{event.date}} a las {{event.time}} Hora Arg &#128582 &#128582</p>
+            <p>Este Webinar es exclusivo para un grupo de Profesionales interesados.</p>
+            <p>Por eso, te animo a que te guardes la cita en tu agenda y que si te ocurre un
+                imprevisto, me avises, así, dejo tu plaza libre para otra persona.</p>
+            <p>Atención!!! Para quienes asistan hasta el final, les compartiré UN REGALO!</p>
+            <p>Muchas gracias,</p>
+            <p>Un abrazo,</p>
+            <p>Muy atento a mi próximo email que te dejo deberes y te cuento algo más de mí ; )</p>
+            <hr />
+            <p>PD: Me encantaría saber qué te ha motivado apuntarte a este WEBINAR así que no lo
+                dudes, envíame un mensaje directo a Instagram y/o cuéntamelo en mi LinkedIn.
+            </p>
+            <p> Un abrazo,</p>
+            <p>&#127752</p>
+        </div>
+        <a href="https://www.instagram.com/tania.maurino/" class="btn"><i id="instagram"
+                class="fab fa-instagram"></i>Instagram</a>
+        <a href="https://www.linkedin.com/in/tania-maurino-coach/" class="btn">
+            <i id="linkedin" class="fab fa-linkedin"></i>LinkedIn</a>
+    </div>
+</body>
+{% endblock %}
