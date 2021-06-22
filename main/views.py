@@ -35,19 +35,18 @@ class SendEmailEventView(View):
         """
         gests = Guests.objects.filter(event=event)
         for gest in gests:
-            try:
-                # pdb.set_trace(),
-                send_templated_mail(
-                    template_name='email-model',
-                    from_email=EMAIL_HOST_USER,
+            # pdb.set_trace()
+            send_templated_mail(
+                template_name='email-model',
+                from_email=EMAIL_HOST_USER,
 
-                    recipient_list=[gest.email],
-                    context={
-                        'gest': gest,
-                        'event': event,
-                    },)
-            except:
-                pass
+                recipient_list=[gest.email],
+                context={
+                    'gest': gest,
+                    'event': event,
+                },
+                template_suffix="html"
+                )
 
         context_body = {
             'event': event,
