@@ -47,6 +47,7 @@ class SendEmailEventView(View):
                 },
                 template_suffix="html"
                 )
+            print("mail enviado a", gest.name)
 
         context_body = {
             'event': event,
