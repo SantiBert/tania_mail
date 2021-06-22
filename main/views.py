@@ -37,15 +37,13 @@ class SendEmailEventView(View):
         for gest in gests:
             # pdb.set_trace()
             send_templated_mail(
-                template_name='email-model',
+                template_name='TU PLAZA ESTÁ RESERVADA',
                 from_email=EMAIL_HOST_USER,
-
                 recipient_list=[gest.email],
                 context={
                     'gest': gest,
                     'event': event,
                 },
-                template_suffix="html"
                 )
             print("mail enviado a", gest.name)
 

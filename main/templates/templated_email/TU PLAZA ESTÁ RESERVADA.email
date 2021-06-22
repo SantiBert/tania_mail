@@ -32,13 +32,13 @@
 
 <body>
     <div class="container">
-        <h5> Hola {{gest.name}}</h5>
+        <h2> Hola {{gest.name}}</h2>
         <div class="row">
             <p>Ahora sí, tienes tu plaza confirmada para mi WEBINAR ON LINE para profesionales que
                 buscan reinventarse.</p>
             <p>Este es el enlace para conectar el próximo</p>
             <a href={{event.link}}> Link</a>
-            <p>RECUERDA: Tu cita será el próximo {{event.date}} a las {{event.time}} Hora Arg &#128582 &#128582</p>
+            <p>RECUERDA: Tu cita será el próximo {{event.date}} a las {{event.time}} Hora Arg <img src="https://img.icons8.com/emoji/48/000000/woman-gesturing-ok.png"/></p>
             <p>Este Webinar es exclusivo para un grupo de Profesionales interesados.</p>
             <p>Por eso, te animo a que te guardes la cita en tu agenda y que si te ocurre un
                 imprevisto, me avises, así, dejo tu plaza libre para otra persona.</p>
@@ -51,12 +51,12 @@
                 dudes, envíame un mensaje directo a Instagram y/o cuéntamelo en mi LinkedIn.
             </p>
             <p> Un abrazo,</p>
-            <p>&#127752</p>
+            <img src="https://img.icons8.com/doodle/48/000000/rainbow--v1.png"/>
         </div>
-        <a href="https://www.instagram.com/tania.maurino/" class="btn"><i id="instagram"
-                class="fab fa-instagram"></i>Instagram</a>
+        <a href="https://www.instagram.com/tania.maurino/" class="btn"><img src="https://img.icons8.com/bubbles/50/000000/instagram-new.png"/>
+        Instagram</a>
         <a href="https://www.linkedin.com/in/tania-maurino-coach/" class="btn">
-            <i id="linkedin" class="fab fa-linkedin"></i>LinkedIn</a>
+           <img src="https://img.icons8.com/doodle/50/000000/linkedin--v2.png"/>LinkedIn</a>
     </div>
 </body>
 {% endblock %}
