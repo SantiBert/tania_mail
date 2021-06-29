@@ -33,11 +33,11 @@ class SendEmailEventView(View):
         send_mail('Asunto', 'a ver si llega', EMAIL_HOST_USER, [
                   'santibertero34@gmail.com', ], fail_silently=False)
         """
-        gests = Guests.objects.filter(event=event)
+        gests = Guests.objects.filter(event=event, is_active=True)
         for gest in gests:
             # pdb.set_trace()
             send_templated_mail(
-                template_name='TU PLAZA ESTÁ RESERVADA',
+                template_name='mail5',
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[gest.email],
                 context={
@@ -139,6 +139,35 @@ class GuestsSearchView(View):
             "guests": guests,
         }
         return render(request, 'guest/guest-result.html', context)
+
+
+@method_decorator(login_required, name='dispatch')
+class GuestsActivate(View):
+    def get(self, request, *args, **kwargs):
+        gests = Guests.objects.all()
+        for gest in gests:
+            if gest.is_active is False:
+                gest.is_active = True
+                gest.save()
+        context_body = {
+            'gests': gests,
+        }
+        return render(request, 'guest/guest-activate.html', context_body)
+
+
+@method_decorator(login_required, name='dispatch')
+class GuestsDesactivate(View):
+    def get(self, request, *args, **kwargs):
+        gests = Guests.objects.all()
+        for gest in gests:
+            if gest.is_active is True:
+                gest.is_active = False
+                gest.save()
+        context_body = {
+            'gests': gests,
+        }
+        return render(request, 'guest/guest-deactivate.html', context_body)
+
 ######################email################
 
 

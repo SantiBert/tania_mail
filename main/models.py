@@ -37,6 +37,7 @@ class Guests(models.Model):
     slug = AutoSlugField(populate_from='id')
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     email = models.EmailField(max_length=254)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

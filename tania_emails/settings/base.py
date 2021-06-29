@@ -25,8 +25,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'eze.farias33@gmail.com'
-EMAIL_HOST_PASSWORD = '36602158'
+EMAIL_HOST_USER = 'maurinotania@gmail.com'
+EMAIL_HOST_PASSWORD = 'Tania28473'
 EMAIL_PORT = 587
 
 TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'templated_email',
+    'import_export',
 ]
 
 MIDDLEWARE = [
