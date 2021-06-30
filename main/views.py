@@ -37,7 +37,7 @@ class SendEmailEventView(View):
         for gest in gests:
             # pdb.set_trace()
             send_templated_mail(
-                template_name='mail5',
+                template_name='mail7',
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[gest.email],
                 context={
